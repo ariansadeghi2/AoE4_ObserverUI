@@ -1,7 +1,7 @@
 ﻿ID,Pipeline,PipelineStage,Notes,TranslationNotes,Tags,Text
 1,,,Mod name.,,,Improved Observer UI
-2,,,Mod description.,,,Improves the UI for observing games and watching replays.\r\n\r\nDue to technical restrictions the UI is implemented as a game mode. Playing the new game mode is aimed to be indistinguishable from playing the 'Standard' game mode.\r\n\r\nhttps://github.com/kuschAoe/AoE4_ObserverUI\r\nkusch_AOE#6566
-3,,,,,,Improved Observer UI(Standard)
+2,,,Mod description.,,,Updated Improved ObserverUI mode with better observing games for 2 Teams. \r\n\r\n https://github.com/ariansadeghi2/AoE4_ObserverUI\r\n\r\n Original GameMode: https://github.com/kuschAoe/AoE4_ObserverUI
+3,,,,,,Improved Team Observer UI(Standard)
 4,,,,,,"The standard, competitive game mode with a variety of match options and win conditions and an improved observer UI."
 5,,,,,,Win Conditions
 6,,,,,,Sacred

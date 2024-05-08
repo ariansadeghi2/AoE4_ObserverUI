@@ -55,11 +55,22 @@ XamlTeamVTeam =
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="2*" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0"
                         Style="{StaticResource ObserverUiHeaderPrimaryText}"
                         Text="{Binding [amount], Converter={StaticResource CastToIntOperator}}" 
 						TextAlignment="Right" />
+				<TextBlock Grid.Column="0" Grid.Row="1"
+						HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+						Foreground="White"
+						FontWeight="Bold"
+						FontSize="12"
+						Text="{Binding [income], Converter={StaticResource CastToIntOperator}}" />
 				
                 <Image Grid.Column="1"
                     	Width="30" Height="30"
@@ -67,7 +78,7 @@ XamlTeamVTeam =
                     	VerticalAlignment="Center"
                     	Source="{Binding [icon]}" />
 				
-                <TextBlock Grid.Column="1"
+                <TextBlock Grid.Column="1" Grid.Row="1"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
 						Foreground="White"
@@ -528,6 +539,87 @@ XamlTeamVTeam =
 				<Setter TargetName="ObserverUiTeamDetails" Property="FlowDirection" Value="RightToLeft"/>
 			</DataTrigger>
 		</DataTemplate>
+
+		<DataTemplate x:Key="ObserverUIResourcesFWGS">
+			<Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+				
+				<ContentControl	Grid.Column="0"
+						ContentTemplate="{StaticResource ObserverUIResource}"
+						Content="{Binding [resources][food]}" />
+				<ContentControl	Grid.Column="1"
+						ContentTemplate="{StaticResource ObserverUIResource}"
+						Content="{Binding [resources][wood]}" />
+				<ContentControl	Grid.Column="2"
+						ContentTemplate="{StaticResource ObserverUIResource}"
+						Content="{Binding [resources][gold]}" />
+				<ContentControl	Grid.Column="3"
+						ContentTemplate="{StaticResource ObserverUIResource}"
+						Content="{Binding [resources][stone]}" />
+			</Grid>
+		</DataTemplate>
+
+		<DataTemplate x:Key="ObserverUiTeamResources">
+			<Grid>
+				<Rectangle>
+					<Rectangle.Fill>
+						<ImageBrush ImageSource="pack://application:,,,/WPFGUI;component/icons/caster_mode/balance_panel/background.png" TileMode="Tile"
+							Viewport="0,0,128,138" ViewportUnits="Absolute" />
+					</Rectangle.Fill>
+				</Rectangle>
+				<Border BorderThickness="2,0,2,2" BorderBrush="#3e5369">
+				<ItemsControl ItemsSource="{Binding}" AlternationCount="2">
+			            <ItemsControl.ItemTemplate>
+			                <DataTemplate>
+								<Grid Height="34">
+								<!-- definiation for two column  -->
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="400" />
+									<ColumnDefinition Width="152" />
+								</Grid.ColumnDefinitions>
+									<Rectangle Name="AlternationTarget" Fill="LightSkyBlue" Opacity="0"  Grid.ColumnSpan="2"/>
+									<Grid Width="400"> 
+										<ContentControl
+												ContentTemplate="{StaticResource ObserverUIResourcesFWGS}"
+												Content="{Binding}" />
+									</Grid>
+									<Grid Grid.Column="1" Width="152">
+									<!-- 4 column -->
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="*" />
+											<ColumnDefinition Width="30" />
+											<ColumnDefinition Width="*" />
+											<ColumnDefinition Width="30" />
+										</Grid.ColumnDefinitions>
+										<TextBlock Grid.Column="0" Margin="0,0,0,0" VerticalAlignment="Center" Width="46" Text="{Binding [workerPopulation], Converter={StaticResource LocalizedStringConverter}, ConverterParameter=$11144600}" TextAlignment="Right" Style="{StaticResource PrimaryText}"/>
+										<Image Grid.Column="1" Margin="0,0,0,0"  Source="../../../icons/caster_mode/balance_panel/villager_count.png">
+											<Image.RenderTransform>
+												<TranslateTransform X="1"/>
+											</Image.RenderTransform>
+										</Image>
+										<TextBlock Grid.Column="2" Margin="0,0,0,0" VerticalAlignment="Center" Width="46" Text="{Binding [allMilitaryPopulation], Converter={StaticResource LocalizedStringConverter}, ConverterParameter=$11144600}" TextAlignment="Right" Style="{StaticResource PrimaryText}"/>
+										<Image Grid.Column="3" Margin="0,0,0,0"  Source="../../../icons/caster_mode/balance_panel/military_population.png"/>
+									</Grid>
+
+								</Grid>
+								<DataTemplate.Triggers>
+		                            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+		                                <Setter TargetName="AlternationTarget" Property="Opacity" Value="0.2"/>
+		                            </Trigger>
+		                        </DataTemplate.Triggers>
+							</DataTemplate>
+
+			            </ItemsControl.ItemTemplate>
+			        </ItemsControl>
+				</Border>
+			</Grid>
+		</DataTemplate>
+		
 	</Grid.Resources>
 	
 	<Grid>
@@ -546,7 +638,7 @@ XamlTeamVTeam =
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 	        
-			<ContentControl HorizontalAlignment="Left" Margin="0,126,0,0"
+			<ContentControl HorizontalAlignment="Left" Margin="0,136,0,0"
 				ContentTemplate="{StaticResource ObserverUiTeamUnits}"
 				Content="{Binding [TeamLeft]}" />
 			
@@ -555,8 +647,15 @@ XamlTeamVTeam =
 						ContentTemplate="{StaticResource ObserverUiTeam}"
 						Content="{Binding [TeamLeft]}" />
 		    </Grid>
+			<!-- FOR RESOURCES 260 34-->
+			<Grid Margin="0,0,260,0">
+				<ContentControl	HorizontalAlignment="Right" VerticalAlignment="Top"
+						ContentTemplate="{StaticResource ObserverUiTeamResources}"
+						Content="{Binding [TeamLeft]}" />
+		    </Grid>
 			
-			<ContentControl Grid.Column="2" HorizontalAlignment="Right" Margin="0,126,0,0"
+			
+			<ContentControl Grid.Column="2" HorizontalAlignment="Right" Margin="0,136,0,0"
 				ContentTemplate="{StaticResource ObserverUiTeamUnits}"
 				Content="{Binding [TeamRight]}" />
 			
@@ -564,6 +663,12 @@ XamlTeamVTeam =
 				<ContentControl	
 						HorizontalAlignment="Left" VerticalAlignment="Top"
 						ContentTemplate="{StaticResource ObserverUiTeam}"
+						Content="{Binding [TeamRight]}" />
+		    </Grid>
+			<!-- FOR RESOURCES 260 34-->
+			<Grid Grid.Column="2" Margin="260,0,0,0">
+				<ContentControl	HorizontalAlignment="Left" VerticalAlignment="Top"
+						ContentTemplate="{StaticResource ObserverUiTeamResources}"
 						Content="{Binding [TeamRight]}" />
 		    </Grid>
 			

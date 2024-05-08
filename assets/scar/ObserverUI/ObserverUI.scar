@@ -129,6 +129,12 @@ function ShowImprovedUI()
 		return
 	end
 	
+	if #TEAMS == 2 then
+		UI_SetPropertyValue("PlayerScores", "Visibility", "Hidden")
+		UI_SetPropertyValue("ReplayStatViewer", "Visibility", "Hidden")
+		UI_SetPropertyValue("ReplayControl", "Margin", "0,480,0,0")
+	end
+	
 	if World_GetPlayerCount() ~= 2 then
 		UI_SetPropertyValue("LandmarkInConstruction", "Visibility", "Collapsed")
 		return
@@ -156,6 +162,12 @@ function ShowClassicUI()
 		UI_SetPropertyValue("ReplayStatViewer", "Visibility", "Visible")
 		UI_SetPropertyValue("ReplayControl", "Margin", "0,0,0,0")
 		return
+	end
+	
+	if #TEAMS == 2 then
+		UI_SetPropertyValue("PlayerScores", "Visibility", "Visible")
+		UI_SetPropertyValue("ReplayStatViewer", "Visibility", "Visible")
+		UI_SetPropertyValue("ReplayControl", "Margin", "0,0,0,0")
 	end
 	
 	if World_GetPlayerCount() ~= 2 then
