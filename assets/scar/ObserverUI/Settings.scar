@@ -3,5 +3,6 @@ ObserverUI_Settings = {
 	symmetricalUi = false,
 	ShowEfficiencyStatisticsInPercent = false,
 	ShowMessages = true,
-	ShowArmy = true
+	ShowArmy = true,
+	swapResourceWithIncomePerMinute = false
 }

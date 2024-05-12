@@ -38,6 +38,7 @@ import("ObserverUI/xaml/SwapPlayers1v1Button.scar")
 import("ObserverUI/xaml/SymmetryButton.scar")
 import("ObserverUI/xaml/HideMessagesButton.scar")
 import("ObserverUI/xaml/HideArmyButton.scar")
+import("ObserverUI/xaml/SwapResourceWithIncomePerMinuteButton.scar")
 
 import("ObserverUI/ObserverUIUpdateUi.scar")
 
@@ -63,7 +64,9 @@ function ObserverUI_OnInit()
 	
 	UI_AddChild("ScarDefault", "XamlPresenter", "ToggleUIButton", { IsHitTestVisible = true, Xaml = _ToggleUIButtonXaml, DataContext = UI_CreateDataContext(_ToggleUIButtonDataContext)})
 	UI_AddChild("ScarDefault", "XamlPresenter", "ObserverUI", { IsHitTestVisible = true, Xaml = observeXaml})
-	
+	if #TEAMS == 2 then -- This button should be on top of ObserverUI
+		UI_AddChild("ScarDefault", "XamlPresenter", "SwapResourceWithIncomePerMinuteButton", { IsHitTestVisible = true, Xaml = _SwapResourceWithIncomePerMinuteButtonXaml, DataContext = UI_CreateDataContext(_SwapResourceWithIncomePerMinuteButtonDataContext)})
+	end
 	Set_ReplayStatViewer_And_ImprovedUI_Visibility(true)
 end
 
@@ -85,6 +88,10 @@ _HideMessagesButtonDataContext = {
 
 _HideArmyButtonDataContext = { 
 	command = UI_CreateCommand("ToggleArmy")
+}
+
+_SwapResourceWithIncomePerMinuteButtonDataContext = {
+	command = UI_CreateCommand("SwapResourceWithIncomePerMinute")
 }
 
 _IsImprovedUIVisible = true
@@ -133,6 +140,7 @@ function ShowImprovedUI()
 		UI_SetPropertyValue("PlayerScores", "Visibility", "Hidden")
 		UI_SetPropertyValue("ReplayStatViewer", "Visibility", "Hidden")
 		UI_SetPropertyValue("ReplayControl", "Margin", "0,480,0,0")
+		UI_SetPropertyValue("SwapResourceWithIncomePerMinuteButton", "Visibility", "Visible")
 	end
 	
 	if World_GetPlayerCount() ~= 2 then
@@ -168,6 +176,7 @@ function ShowClassicUI()
 		UI_SetPropertyValue("PlayerScores", "Visibility", "Visible")
 		UI_SetPropertyValue("ReplayStatViewer", "Visibility", "Visible")
 		UI_SetPropertyValue("ReplayControl", "Margin", "0,0,0,0")
+		UI_SetPropertyValue("SwapResourceWithIncomePerMinuteButton", "Visibility", "Collapsed")
 	end
 	
 	if World_GetPlayerCount() ~= 2 then

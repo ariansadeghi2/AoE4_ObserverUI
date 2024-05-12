@@ -740,7 +740,7 @@
 		<DataProperty Name="m_devOnly" Type="Bool" Value="false"/>
 		<DataProperty Name="m_egroupNamePrefixDestroyList" Type="String"/>
 		<DataProperty Name="m_permittedInventoryItemCategories" Type="String"/>
-		<DataProperty Name="m_feImageUnselected" Type="String" Value=""/>
+		<DataProperty Name="m_feImageUnselected" Type="String" Value="icons\xbox\clock"/>
 	</DataObject>
 </DataWarehouse>
 

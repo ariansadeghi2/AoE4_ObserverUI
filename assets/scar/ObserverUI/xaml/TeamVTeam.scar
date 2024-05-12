@@ -55,22 +55,11 @@ XamlTeamVTeam =
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="2*" />
-					<RowDefinition Height="*" />
-				</Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0"
                         Style="{StaticResource ObserverUiHeaderPrimaryText}"
                         Text="{Binding [amount], Converter={StaticResource CastToIntOperator}}" 
 						TextAlignment="Right" />
-				<TextBlock Grid.Column="0" Grid.Row="1"
-						HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-						Foreground="White"
-						FontWeight="Bold"
-						FontSize="12"
-						Text="{Binding [income], Converter={StaticResource CastToIntOperator}}" />
 				
                 <Image Grid.Column="1"
                     	Width="30" Height="30"
@@ -78,12 +67,41 @@ XamlTeamVTeam =
                     	VerticalAlignment="Center"
                     	Source="{Binding [icon]}" />
 				
-                <TextBlock Grid.Column="1" Grid.Row="1"
+                <TextBlock Grid.Column="1"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
 						Foreground="White"
 						FontWeight="Bold"
                     	Text="{Binding [workers], Converter={StaticResource CastToIntOperator}}" />
+            </Grid>
+        </DataTemplate>
+
+		<DataTemplate x:Key="ObserverUIIncomePerMinute">
+            <Grid Width="100" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                        Style="{StaticResource ObserverUiHeaderPrimaryText}"
+                        Text="{Binding [income], Converter={StaticResource CastToIntOperator}}" 
+						TextAlignment="Right" 
+						Margin="0,0,0,0"/>
+				
+                <Image Grid.Column="1"
+                    	Width="30" Height="30"
+                    	HorizontalAlignment="Left"
+                    	VerticalAlignment="Center"
+                    	Source="{Binding [icon]}" />
+				
+                <TextBlock Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+						Foreground="White"
+						FontWeight="Bold"
+                    	Text="/min"
+						Margin="25,0,0,5" />
             </Grid>
         </DataTemplate>
 		
@@ -101,7 +119,6 @@ XamlTeamVTeam =
 			                <DataTemplate>
 								<Grid Height="34">
 		                            <Rectangle Name="AlternationTarget" Fill="LightSkyBlue" Opacity="0"/>
-									
 									<Grid Width="260">
 		                                <Image Name="ObserverUiPlayerCivFlag" Height="26" Margin="5,0,5,0" 
 												VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -542,27 +559,71 @@ XamlTeamVTeam =
 
 		<DataTemplate x:Key="ObserverUIResourcesFWGS">
 			<Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
 				
-				<ContentControl	Grid.Column="0"
-						ContentTemplate="{StaticResource ObserverUIResource}"
-						Content="{Binding [resources][food]}" />
-				<ContentControl	Grid.Column="1"
-						ContentTemplate="{StaticResource ObserverUIResource}"
-						Content="{Binding [resources][wood]}" />
-				<ContentControl	Grid.Column="2"
-						ContentTemplate="{StaticResource ObserverUIResource}"
-						Content="{Binding [resources][gold]}" />
-				<ContentControl	Grid.Column="3"
-						ContentTemplate="{StaticResource ObserverUIResource}"
-						Content="{Binding [resources][stone]}" />
+				<!-- Define ContentControl for Food -->
+				<ContentControl Grid.Column="0" Content="{Binding [resources][food]}">
+					<ContentControl.Style>
+						<Style TargetType="ContentControl">
+							<Setter Property="ContentTemplate" Value="{StaticResource ObserverUIResource}" />
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding [isIncomePerMinute]}" Value="true">
+									<Setter Property="ContentTemplate" Value="{StaticResource ObserverUIIncomePerMinute}" />
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</ContentControl.Style>
+				</ContentControl>
+
+				<!-- Define ContentControl for Wood -->
+				<ContentControl Grid.Column="1" Content="{Binding [resources][wood]}">
+					<ContentControl.Style>
+						<Style TargetType="ContentControl">
+							<Setter Property="ContentTemplate" Value="{StaticResource ObserverUIResource}" />
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding [isIncomePerMinute]}" Value="true">
+									<Setter Property="ContentTemplate" Value="{StaticResource ObserverUIIncomePerMinute}" />
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</ContentControl.Style>
+				</ContentControl>
+
+				<!-- Define ContentControl for Gold -->
+				<ContentControl Grid.Column="2" Content="{Binding [resources][gold]}">
+					<ContentControl.Style>
+						<Style TargetType="ContentControl">
+							<Setter Property="ContentTemplate" Value="{StaticResource ObserverUIResource}" />
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding [isIncomePerMinute]}" Value="true">
+									<Setter Property="ContentTemplate" Value="{StaticResource ObserverUIIncomePerMinute}" />
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</ContentControl.Style>
+				</ContentControl>
+
+				<!-- Define ContentControl for Stone -->
+				<ContentControl Grid.Column="3" Content="{Binding [resources][stone]}">
+					<ContentControl.Style>
+						<Style TargetType="ContentControl">
+							<Setter Property="ContentTemplate" Value="{StaticResource ObserverUIResource}" />
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding [isIncomePerMinute]}" Value="true">
+									<Setter Property="ContentTemplate" Value="{StaticResource ObserverUIIncomePerMinute}" />
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</ContentControl.Style>
+				</ContentControl>
 			</Grid>
 		</DataTemplate>
+
 
 		<DataTemplate x:Key="ObserverUiTeamResources">
 			<Grid>
@@ -573,23 +634,22 @@ XamlTeamVTeam =
 					</Rectangle.Fill>
 				</Rectangle>
 				<Border BorderThickness="2,0,2,2" BorderBrush="#3e5369">
-				<ItemsControl ItemsSource="{Binding}" AlternationCount="2">
+					<ItemsControl ItemsSource="{Binding}" AlternationCount="2">
 			            <ItemsControl.ItemTemplate>
 			                <DataTemplate>
 								<Grid Height="34">
 								<!-- definiation for two column  -->
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="400" />
-									<ColumnDefinition Width="152" />
+									<ColumnDefinition Width="Auto"/> <!-- Resources -->
+									<ColumnDefinition Width="Auto"/> <!-- Worker and military -->
 								</Grid.ColumnDefinitions>
 									<Rectangle Name="AlternationTarget" Fill="LightSkyBlue" Opacity="0"  Grid.ColumnSpan="2"/>
-									<Grid Width="400"> 
+									<Grid Name="ResourcesFWGSGrid"  Grid.Column="0" Width="400"> 
 										<ContentControl
 												ContentTemplate="{StaticResource ObserverUIResourcesFWGS}"
 												Content="{Binding}" />
 									</Grid>
-									<Grid Grid.Column="1" Width="152">
-									<!-- 4 column -->
+									<Grid Name="WorkerMilitaryGrid" Grid.Column="1" Width="150"> <!-- workers and military -->
 										<Grid.ColumnDefinitions>
 											<ColumnDefinition Width="*" />
 											<ColumnDefinition Width="30" />
@@ -608,6 +668,10 @@ XamlTeamVTeam =
 
 								</Grid>
 								<DataTemplate.Triggers>
+									<DataTrigger Binding="{Binding [IsRightSide]}" Value="true">
+										<Setter TargetName="ResourcesFWGSGrid" Property="Grid.Column" Value="1"/>
+										<Setter TargetName="WorkerMilitaryGrid" Property="Grid.Column" Value="0"/>
+									</DataTrigger>
 		                            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
 		                                <Setter TargetName="AlternationTarget" Property="Opacity" Value="0.2"/>
 		                            </Trigger>

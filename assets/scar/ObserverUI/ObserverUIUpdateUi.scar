@@ -86,6 +86,7 @@ function InitializeObserverUIDataContext()
 		data.WorkerEfficiency = 0
 		data.TownCenterIdleTime = 0
 		data.TownCenterEfficiency = 0
+		data.isIncomePerMinute = ObserverUI_Settings.swapResourceWithIncomePerMinute
 		
 		local resources = {}
 		for key,enum in pairs(ObserverUi_ResourceMapping) do
@@ -157,6 +158,15 @@ end
 
 function ToggleArmy()
 	ObserverUI_Settings.ShowArmy = not ObserverUI_Settings.ShowArmy
+	UpdateObserverUIDataContext()
+end
+
+function SwapResourceWithIncomePerMinute()
+	ObserverUI_Settings.swapResourceWithIncomePerMinute = not ObserverUI_Settings.swapResourceWithIncomePerMinute
+	for index=1, #PLAYERS do
+		local playerTable = ObserverUIDataContextMappings.PlayersByIndex[index]
+		playerTable.isIncomePerMinute = ObserverUI_Settings.swapResourceWithIncomePerMinute
+	end
 	UpdateObserverUIDataContext()
 end
 
