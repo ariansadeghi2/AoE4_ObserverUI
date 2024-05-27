@@ -638,44 +638,50 @@ XamlTeamVTeam =
 			            <ItemsControl.ItemTemplate>
 			                <DataTemplate>
 								<Grid Height="34">
-								<!-- definiation for two column  -->
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto"/> <!-- Resources -->
-									<ColumnDefinition Width="Auto"/> <!-- Worker and military -->
-								</Grid.ColumnDefinitions>
-									<Rectangle Name="AlternationTarget" Fill="LightSkyBlue" Opacity="0"  Grid.ColumnSpan="2"/>
-									<Grid Name="ResourcesFWGSGrid"  Grid.Column="0" Width="400"> 
+									<!-- Definition for two columns -->
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto"/> <!-- Resources --> 
+										<ColumnDefinition Width="Auto"/>  <!-- Worker -->
+										<ColumnDefinition Width="Auto"/>  <!-- Military --> 
+									</Grid.ColumnDefinitions>
+									
+									<Rectangle Name="AlternationTarget" Fill="LightSkyBlue" Opacity="0" Grid.ColumnSpan="3"/>
+									
+									<Grid Name="ResourcesFWGSGrid" Grid.Column="0" Width="410">
 										<ContentControl
-												ContentTemplate="{StaticResource ObserverUIResourcesFWGS}"
-												Content="{Binding}" />
+											ContentTemplate="{StaticResource ObserverUIResourcesFWGS}"
+											Content="{Binding}" />
 									</Grid>
-									<Grid Name="WorkerMilitaryGrid" Grid.Column="1" Width="150"> <!-- workers and military -->
+									
+									<Grid Name="WorkerGrid" Grid.Column="2" Width="75">
 										<Grid.ColumnDefinitions>
-											<ColumnDefinition Width="*" />
-											<ColumnDefinition Width="30" />
-											<ColumnDefinition Width="*" />
+											<ColumnDefinition Width="45" />
 											<ColumnDefinition Width="30" />
 										</Grid.ColumnDefinitions>
-										<TextBlock Grid.Column="0" Margin="0,0,0,0" VerticalAlignment="Center" Width="46" Text="{Binding [workerPopulation], Converter={StaticResource LocalizedStringConverter}, ConverterParameter=$11144600}" TextAlignment="Right" Style="{StaticResource PrimaryText}"/>
-										<Image Grid.Column="1" Margin="0,0,0,0"  Source="../../../icons/caster_mode/balance_panel/villager_count.png">
-											<Image.RenderTransform>
-												<TranslateTransform X="1"/>
-											</Image.RenderTransform>
-										</Image>
-										<TextBlock Grid.Column="2" Margin="0,0,0,0" VerticalAlignment="Center" Width="46" Text="{Binding [allMilitaryPopulation], Converter={StaticResource LocalizedStringConverter}, ConverterParameter=$11144600}" TextAlignment="Right" Style="{StaticResource PrimaryText}"/>
-										<Image Grid.Column="3" Margin="0,0,0,0"  Source="../../../icons/caster_mode/balance_panel/military_population.png"/>
+										<TextBlock Grid.Column="0" Margin="0,0,0,0" VerticalAlignment="Center" Width="45" Text="{Binding [workerPopulation], Converter={StaticResource LocalizedStringConverter}, ConverterParameter=$11144600}" TextAlignment="Right" Style="{StaticResource PrimaryText}"/>
+										<Image Grid.Column="1" Margin="0,0,0,0" Source="../../../icons/caster_mode/balance_panel/villager_count.png"/>
 									</Grid>
-
+									
+									<Grid Name="MilitaryGrid" Grid.Column="1" Width="75">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="45" />
+											<ColumnDefinition Width="30" />
+										</Grid.ColumnDefinitions>
+										<TextBlock Grid.Column="0" Margin="0,0,0,0" VerticalAlignment="Center" Width="45" Text="{Binding [allMilitaryPopulation], Converter={StaticResource LocalizedStringConverter}, ConverterParameter=$11144600}" TextAlignment="Right" Style="{StaticResource PrimaryText}"/>
+										<Image Grid.Column="1" Margin="0,0,0,0" Source="../../../icons/caster_mode/balance_panel/military_population.png"/>
+									</Grid>
 								</Grid>
+
 								<DataTemplate.Triggers>
 									<DataTrigger Binding="{Binding [IsRightSide]}" Value="true">
-										<Setter TargetName="ResourcesFWGSGrid" Property="Grid.Column" Value="1"/>
-										<Setter TargetName="WorkerMilitaryGrid" Property="Grid.Column" Value="0"/>
+										<Setter TargetName="ResourcesFWGSGrid" Property="Grid.Column" Value="2"/>
+										<Setter TargetName="WorkerGrid" Property="Grid.Column" Value="0"/>
+										<Setter TargetName="MilitaryGrid" Property="Grid.Column" Value="1"/>
 									</DataTrigger>
-		                            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-		                                <Setter TargetName="AlternationTarget" Property="Opacity" Value="0.2"/>
-		                            </Trigger>
-		                        </DataTemplate.Triggers>
+									<Trigger Property="ItemsControl.AlternationIndex" Value="1">
+										<Setter TargetName="AlternationTarget" Property="Opacity" Value="0.2"/>
+									</Trigger>
+								</DataTemplate.Triggers>
 							</DataTemplate>
 
 			            </ItemsControl.ItemTemplate>
